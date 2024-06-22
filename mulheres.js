@@ -1,32 +1,43 @@
-const express = require("express")                                                     // aqui estou iniciando o express
-const router = express.Router()                                                       //aqui estou configurando a primeira parte da  de rota
-const { v4: uuidv4 } = require('uuid')                                                // esta biblioteca gera id's automaticamente
-const app = express()                                                                 // aqui estou iniciando o app
-app.use(express.json())                                                               // lê o corpo das requisições HTTP que têm o conteúdo no formato JSON e converte esse conteúdo em um objeto JavaScript 'request.body'
-const porta = 3333                                                                    // aqui estou criando a porta
+////mongodb+srv://miatech01:fadamonster#baly@clustermulheres.c02veku.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMulheres
 
-                                                                                      //aqui estou criando a lista inicial de mulheres
+const express = require("express")                                                    
+const router = express.Router()                                                       //aqui estou configurando a primeira parte da  de rota
+const { v4: uuidv4 } = require('uuid') 
+
+const conectaBancoDeDados = require ('./db')
+conectaBancoDeDados()
+                                           // esta biblioteca gera id's automaticamente
+const app = express()                                                                 // aqui estou iniciando o app
+exports.app = app
+app.use(express.json())                                                               // lê o corpo das requisições HTTP que têm o conteúdo no formato JSON e converte esse conteúdo em um objeto JavaScript 'request.body'
+const porta = 3333                                                                    // aqui estou criando a porta                     
+exports.porta = porta
+
+
+
+
+//aqui estou criando a lista inicial de mulheres
 const listaDeMulheres = [
 
     {
       id:'1',
       nome: 'Simara Conceição',
       imagem: 'https://bit.ly/3LJIyOF',
-      minibio: 'Desenvolvedora e instrutora',
+      minibio: 'Desenvolvedora e instrutora'
     },
    
     {
       id:'2',
       nome: 'Iana Chan',
       imagem: 'https://bit.ly/3JCXBqP',
-      minibio: 'CEO & Founder da PrograMaria',
+      minibio: 'CEO & Founder da PrograMaria'
     },
    
     {
-      ide:'3',
+      id:'3',
       nome: 'Luana Pimentel',
       imagem: 'https://bit.ly/3FKpFaz',
-      minibio: 'Senior Staff Software Engineer',
+      minibio: 'Senior Staff Software Engineer'
     }
    
    ]
@@ -94,11 +105,36 @@ app.patch('/mulheres/:id', function corrigeMulher(request, response) {
  })
  
 
-                                                                                        //PORTA
+ //DELETE
+
+ function deletaMulher( request, response ) {
+ 
+  function todasMenosEla(mulher) {
+ 
+    if (mulher.id !== request.params.id) {
+ 
+      return mulher
+ 
+    }
+ 
+  }
+ 
+ 
+  const mulheresQueFicaram = listaDeMulheres.filter(todasMenosEla)
+ 
+
+  response.json(mulheresQueFicaram)
+ 
+ }
+ 
+ app.use(router.delete('/mulheres/:id', deletaMulher)) 
+ 
+ 
 
 app.listen(porta, function mostraPorta() {
 
     console.log("Servidor criado e rodando na porta ", porta)
 
 })
+
 

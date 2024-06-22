@@ -2,6 +2,10 @@ const express = require("express")
 //configuração de rota
 const router = express.Router()
 
+const conectaBancoDeDados = require('./bancoDeDados.js')
+
+conectaBancoDeDados()
+
 
 const app = express()
 const PORTA = 3333
