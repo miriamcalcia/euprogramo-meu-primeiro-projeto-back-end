@@ -3,14 +3,12 @@ const express = require("express")
 const router = express.Router()
 
 
-
 const app = express()
-
 const PORTA = 3333
 
 
 
-function mostraMulher(request, response) {
+function mostraMulheres(request, response) {
 
  response.json({
 
@@ -33,6 +31,6 @@ function mostraPorta() {
 
 
 
-app.use(router.get('/mulher', mostraMulher))
+app.use(router.get('/mulher', mostraMulheres))
 
 app.listen(PORTA, mostraPorta)
