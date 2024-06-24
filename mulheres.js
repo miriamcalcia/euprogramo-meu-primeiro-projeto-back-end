@@ -1,4 +1,4 @@
-////mongodb+srv://miatech01:fadamonster#baly@clustermulheres.c02veku.mongodb.net/?retryWrites=true&w=majority&appName=ClusterMulheres
+
 
 const express = require("express")                                                    
 const router = express.Router()                                                       //aqui estou configurando a primeira parte da  de rota
